@@ -2,10 +2,10 @@ import { IsNotEmpty, IsString, MaxLength } from "class-validator";
 
 export class CreateUserDto {
 
-    @IsNotEmpty({ message: 'CodeId cannot be empty' })
-    @IsString({ message: 'CodeId must be a string' })
-    @MaxLength(13, { message: 'CodeId must be at most 13 characters long' })
-    codeId: string;
+    @IsNotEmpty({ message: 'userId cannot be empty' })
+    @IsString({ message: 'userId must be a string' })
+    @MaxLength(13, { message: 'userId must be at most 13 characters long' })
+    userId: string;
 
     @IsNotEmpty({ message: 'Username cannot be empty' })
     @IsString({ message: 'Username must be a string' })

@@ -21,23 +21,23 @@ export class UsersService {
     return users;
   }
 
-  async findOne(codeId: string) {
-    const user = await this.userModel.findOne({ codeId }, { password: 0 });
+  async findOne(userId: string) {
+    const user = await this.userModel.findOne({ userId }, { password: 0 });
     return user;
   }
 
-  async update(codeId: string, updateUserDto: UpdateUserDto) {
+  async update(userId: string, updateUserDto: UpdateUserDto) {
     const password = updateUserDto['old_password'];
     const updatedUser = await this.userModel.findOneAndUpdate(
-      { codeId, password },
+      { userId, password },
       { $set: { ...updateUserDto, updatedAt: Date.now() } },
       { new: true },
     ).select('-password');
     return updatedUser;
   }
 
-  async remove(codeId: string) {
-    const deletedUser = await this.userModel.findOneAndDelete({ codeId }, { password: 0 });
+  async remove(userId: string) {
+    const deletedUser = await this.userModel.findOneAndDelete({ userId }, { password: 0 });
     return deletedUser;
   }
 }

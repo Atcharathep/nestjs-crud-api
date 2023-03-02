@@ -10,7 +10,7 @@ export class UsersController {
   @Post()
   @UsePipes(new ValidationPipe())
   async create(@Body() createUserDto: CreateUserDto) {
-    const user = await this.usersService.findOne(createUserDto.codeId);
+    const user = await this.usersService.findOne(createUserDto.userId);
     if (user) throw new NotFoundException(`This user account exists.`);
 
     const createdUser = await this.usersService.create(createUserDto);
@@ -23,30 +23,30 @@ export class UsersController {
     return { message: `All users retrieved successfully`, users };
   }
 
-  @Get(':codeId')
-  async findOne(@Param('codeId') codeId: string) {
-    const user = await this.usersService.findOne(codeId);
-    if (!user) throw new NotFoundException(`User with ID ${codeId} not found`);
-    return { massage: `User with ID ${codeId} retrieved successfully`, user };
+  @Get(':userId')
+  async findOne(@Param('userId') userId: string) {
+    const user = await this.usersService.findOne(userId);
+    if (!user) throw new NotFoundException(`User with ID ${userId} not found`);
+    return { massage: `User with ID ${userId} retrieved successfully`, user };
   }
 
-  @Put(':codeId')
-  async update(@Param('codeId') codeId: string, @Body() updateUserDto: UpdateUserDto) {
-    const user = await this.usersService.findOne(codeId);
-    if (!user) throw new NotFoundException(`User with ID ${codeId} not found`);
+  @Put(':userId')
+  async update(@Param('userId') userId: string, @Body() updateUserDto: UpdateUserDto) {
+    const user = await this.usersService.findOne(userId);
+    if (!user) throw new NotFoundException(`User with ID ${userId} not found`);
 
-    const updatedUser = await this.usersService.update(codeId, updateUserDto);
+    const updatedUser = await this.usersService.update(userId, updateUserDto);
     if (!updatedUser) throw new NotFoundException(`Passwords do not match`);
 
     return { message: `User updated successfully`, updatedUser };
   }
 
-  @Delete(':codeId')
-  async remove(@Param('codeId') codeId: string) {
-    const user = await this.usersService.findOne(codeId);
-    if (!user) throw new NotFoundException(`User with ID ${codeId} not found`);
+  @Delete(':userId')
+  async remove(@Param('userId') userId: string) {
+    const user = await this.usersService.findOne(userId);
+    if (!user) throw new NotFoundException(`User with ID ${userId} not found`);
 
-    const deletedUser = await this.usersService.remove(codeId);
+    const deletedUser = await this.usersService.remove(userId);
     return { message: `User deleted successfilly`, deletedUser };
   }
 }
